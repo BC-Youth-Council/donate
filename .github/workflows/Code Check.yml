@@ -5,6 +5,7 @@ on:
     paths-ignore:
     - '.github/**'
     - '**.bsdesign'
+    - 'README.md'
 
 jobs:
   deploy:
