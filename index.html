@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>BCYC Donate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <!-- Start: 1 Row 4 Columns -->
+    <div>
+        <div class="container d-flex justify-content-center"><img src="assets/img/BCYC-Logo-Full.png"></div>
+        <div class="container container-border" style="margin-top: 20px;">
+            <h1>One-time Donation</h1>
+            <div class="row d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center">
+                <div class="col-md-3 d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary" type="button" style="width: 100%;" data-checkout-mode="payment" data-price-id="price_1HzTSeCNOqCSCYGpgF10wndp">Donate $5</button></div>
+                <div class="col-md-3 d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary" type="button" style="width: 100%;" data-price-id="price_1HySzRCNOqCSCYGpfEpQvQyy" data-checkout-mode="payment">Donate $10</button></div>
+                <div class="col-md-3 d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary" type="button" style="width: 100%;" data-checkout-mode="payment" data-price-id="price_1HySzRCNOqCSCYGpp6RVBnjw">Donate $20</button></div>
+            </div>
+            <div class="row d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center">
+                <div class="col-md-3 d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary" type="button" data-price-id="price_1HzUfQCNOqCSCYGpcWnC1olj" data-checkout-mode="payment">Donate $35</button></div>
+                <div class="col-md-3 d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary" type="button" style="width: 100%;" data-price-id="price_1HySzRCNOqCSCYGpK3U1SDuK" data-checkout-mode="payment">Donate $50</button></div>
+                <div class="col-md-3 d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary" type="button" style="width: 100%;" data-price-id="price_1HzUg1CNOqCSCYGpVAKrxjzA" data-checkout-mode="payment">Donate $100</button></div>
+                <div class="col-md-3 d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary" type="button" style="width: 100%;" data-price-id="price_1HzUgiCNOqCSCYGpNwPqxksm" data-checkout-mode="payment">Donate $500</button></div>
+            </div>
+            <p class="text-center" style="font-size: 20px;">If you have any questions, please contact <a href="mailto:fundraising@bcyouthcouncil.ca">fundraising@bcyouthcouncil.ca</a>. We cannot issue tax receipts.</p>
+        </div>
+    </div><!-- End: 1 Row 4 Columns --><script>
+      // Replace with your own publishable key: https://dashboard.stripe.com/test/apikeys
+      var PUBLISHABLE_KEY = 'pk_test_51HxmOFCNOqCSCYGp3jcHnew8EUNN0ugliSgfS2W8dcJqZCEKxxvtYl8vibubJ4Qb3Xuegay8vnI6bGWmHBHaD0Ks00fst0hVSv';
+      // Replace with the domain you want your users to be redirected back to after payment
+      var DOMAIN = location.href.replace(/[^/]*$/, '');
+
+      var stripe = Stripe(PUBLISHABLE_KEY);
+
+      // Handle any errors from Checkout
+      var handleResult = function (result) {
+        if (result.error) {
+          var displayError = document.getElementById('error-message');
+          displayError.textContent = result.error.message;
+        }
+      };
+
+      document.querySelectorAll('button').forEach(function (button) {
+        button.addEventListener('click', function (e) {
+          var mode = e.target.dataset.checkoutMode;
+          var priceId = e.target.dataset.priceId;
+          var items = [{ price: priceId, quantity: 1 }];
+
+          // Make the call to Stripe.js to redirect to the checkout page
+          // with the sku or plan ID.
+          stripe
+            .redirectToCheckout({
+              mode: mode,
+              lineItems: items,
+              successUrl:
+                DOMAIN + 'success.html',
+              cancelUrl:
+                DOMAIN + 'canceled.html',
+            })
+            .then(handleResult);
+        });
+      });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
