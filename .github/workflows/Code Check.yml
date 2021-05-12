@@ -31,7 +31,7 @@ jobs:
       run: npm init && npm install --save-dev stylelint stylelint-config-standard
 
     - name: Get CSS linter
-      uses: xt0rted/stylelint-problem-matcher@v1
+      uses: xt0rted/stylelint-problem-matcher@v1.2.0
 
     - run: npm ci
       working-directory: "assets/css"
